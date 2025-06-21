@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import Footer from "../Pages/Shared/Footer/Footer";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 const RootLayout = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+    AOS.refresh();
+  }, []);
+
   return (
     <div className="xl:container px-8 py-5 mx-auto">
       <Navbar></Navbar>

@@ -8,7 +8,7 @@ const ServiceCard = ({ service }) => {
       className="card bg-base-100 p-6 flex flex-col gap-5 items-center text-center rounded-lg 
       hover:bg-primary transition-all duration-500"
     >
-      <div className="text-4xl text-primary">
+      <div className="text-4xl text-black">
         <Icon size={40} />
       </div>
       <h3 className="text-lg font-bold text-black">{title}</h3>

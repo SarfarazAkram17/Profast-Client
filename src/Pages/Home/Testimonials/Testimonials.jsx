@@ -95,7 +95,7 @@ const Testimonials = () => {
   const swiperRef = useRef(null);
 
   return (
-    <section className="my-10 text-center px-4">
+    <section data-aos='zoom-in-up' className="my-10 text-center px-4">
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-center mb-6">
           <img src={boxes} alt="Box Icon" />

@@ -27,7 +27,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="py-12 px-4">
+    <section data-aos='zoom-in-up' className="py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
           How it Works

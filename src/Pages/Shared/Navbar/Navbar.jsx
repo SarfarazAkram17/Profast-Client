@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import ProfastLogo from "../ProfastLogo/ProfastLogo";
+import { RxArrowTopRight } from "react-icons/rx";
 
 const Navbar = () => {
   const navItems = (
@@ -58,7 +59,12 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <button className="btn btn-primary border-2 rounded-lg font-bold text-black shadow-none btn-outline mr-2">
+          Sign In
+        </button>
+        <button className="btn bg-primary border-2 rounded-lg font-bold hover:bg-transparent border-primary text-black shadow-none">
+          Be a rider <RxArrowTopRight size={18} className="-ml-2" />
+        </button>
       </div>
     </div>
   );

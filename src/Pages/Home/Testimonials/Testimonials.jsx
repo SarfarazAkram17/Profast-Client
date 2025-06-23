@@ -95,7 +95,7 @@ const Testimonials = () => {
   const swiperRef = useRef(null);
 
   return (
-    <section data-aos='zoom-in-up' className="my-10 text-center px-4">
+    <section data-aos='zoom-in-up' className="my-10 text-center">
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-center mb-6">
           <img src={boxes} alt="Box Icon" />
@@ -150,7 +150,7 @@ const Testimonials = () => {
           ))}
         </Swiper>
 
-        <div className="mt-6 flex items-center gap-6 justify-center">
+        <div className="mt-6 flex flex-col sm:flex-row items-center gap-6 justify-center">
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="p-2 rounded-full bg-white text-black hover:bg-primary"

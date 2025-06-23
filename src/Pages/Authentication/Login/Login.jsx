@@ -1,22 +1,42 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import ProfastLogo from "../../Shared/ProfastLogo/ProfastLogo";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import useAuth from "../../../Hooks/useAuth";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { loginUser, user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  console.log(user?.photoURL);
   const {
     register,
     handleSubmit,
+    formState: { errors },
   } = useForm();
 
   const handleLogin = (formData) => {
-    const email = formData.email
-    const password = formData.password
+    setLoading(true);
 
-    console.log(email, password)
+    const email = formData.email.trim();
+    const password = formData.password.trim();
+
+    loginUser(email, password)
+      .then(() => {
+        toast.success("You logged in successfully");
+        setLoading(false);
+        navigate(location.state || "/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        setLoading(false);
+      });
   };
 
   return (
@@ -32,21 +52,27 @@ const Login = () => {
             <label className="label font-semibold">Email</label>
             <input
               type="email"
-              {...register("email")}
-              required
-              className="input mb-4 placeholder:text-[13px] placeholder:font-bold"
+              {...register("email", { required: true })}
+              className="input placeholder:text-[13px] placeholder:font-bold"
               placeholder="Enter your email"
             />
-            <label className="label font-semibold">Password</label>
+            {errors.email?.type === "required" && (
+              <p className="text-red-500 font-bold">Email is required.</p>
+            )}
+
+            <label className="label font-semibold mt-4">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 className="input placeholder:text-[13px] placeholder:font-bold"
-                {...register("password")}
-                required
+                {...register("password", {
+                  required: true,
+                })}
                 placeholder="Enter your password"
               />
-
+              {errors.password?.type === "required" && (
+                <p className="text-red-500 font-bold">Password is required.</p>
+              )}
               {showPassword ? (
                 <FaEyeSlash
                   onClick={() => setShowPassword(!showPassword)}
@@ -66,11 +92,21 @@ const Login = () => {
                 Forgot password?
               </a>
             </div>
-            <button className="btn btn-primary text-black mt-6">Login</button>
+            <button
+              disabled={loading}
+              className="btn btn-primary text-black mt-6"
+            >
+              {" "}
+              {loading ? (
+                <span className="loading loading-spinner loading-md"></span>
+              ) : (
+                "Login"
+              )}
+            </button>
             <p className="text-xs my-2">
               Don't have any account ?{" "}
               <Link
-                // state={location.state}
+                state={location.state}
                 to="/register"
                 className="hover:underline text-[#8FA748] font-semibold"
               >
@@ -78,7 +114,11 @@ const Login = () => {
               </Link>
             </p>
           </form>
-          <div className="divider my-4">OR</div>
+          <div className="divider my-4 text-gray-500 font-semibold">Or</div>
+          <SocialLogin
+            state={location.state}
+            message={"You registered successfully"}
+          ></SocialLogin>
         </div>
       </div>
     </div>

@@ -51,7 +51,7 @@ const Services = () => {
   return (
     <div data-aos="fade-up" className="py-16 bg-[#093437] text-white my-20 rounded-3xl">
       <div className="container mx-auto px-4 sm:px-8">
-        <h2 className="text-3xl font-bold text-center mb-4">Our Services</h2>
+        <h1 className="text-3xl font-extrabold text-center mb-4">Our Services</h1>
         <p className="text-center mb-10 max-w-2xl mx-auto text-gray-300">
           Enjoy fast, reliable parcel delivery with real-time tracking and zero
           hassle. From personal packages to business shipments — we deliver on

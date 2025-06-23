@@ -46,7 +46,7 @@ const Faq = () => {
 
   return (
     <div data-aos="fade-right" className="my-20 px-4 max-w-4xl mx-auto">
-      <h1 className="mb-12 text-center text-3xl md:text-4xl font-bold">
+      <h1 className="mb-12 text-center text-3xl md:text-4xl font-extrabold">
         Frequently Asked Questions
       </h1>
 

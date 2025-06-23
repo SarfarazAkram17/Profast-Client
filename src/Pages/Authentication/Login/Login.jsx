@@ -46,7 +46,7 @@ const Login = () => {
       </div>
       <div className="card w-full shadow-xl max-w-sm mx-auto my-12">
         <div className="card-body">
-          <h1 className="text-3xl font-bold">Welcome Back</h1>
+          <h1 className="text-3xl font-extrabold">Welcome Back</h1>
           <p className="mb-4 text-sm font-semibold">Login with Profast</p>
           <form onSubmit={handleSubmit(handleLogin)} className="fieldset">
             <label className="label font-semibold">Email</label>

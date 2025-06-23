@@ -6,7 +6,7 @@ const BeMerchant = () => {
     <div data-aos="fade-left" className="my-20 max-w-4xl mx-auto">
       <div className="py-16 px-10 bg-[#03373D] bg-[url('assets/be-a-merchant-bg.png')] bg-no-repeat bg-[top_center] bg-[length:1050px_auto] rounded-3xl flex flex-col md:flex-row gap-8 md:gap-4 items-center text-white">
         <div className="space-y-5">
-          <h1 className="text-2xl md:text-3xl font-bold">
+          <h1 className="text-2xl md:text-3xl font-extrabold">
             Merchant and Customer Satisfaction is Our First Priority
           </h1>
           <p className="max-w-2xl text-sm my-6 font-light">

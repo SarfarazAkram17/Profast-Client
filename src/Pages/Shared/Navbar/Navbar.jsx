@@ -60,7 +60,9 @@ const Navbar = () => {
           >
             {navItems}
             {user && (
-              <button onClick={logOut} className="btn btn-error mb-2 font-bold">Logout</button>
+              <button onClick={logOut} className="btn btn-error mb-2 font-bold">
+                Logout
+              </button>
             )}
             <Link>
               {" "}
@@ -70,9 +72,10 @@ const Navbar = () => {
             </Link>
           </ul>
         </div>
-        <a className="ml-4">
+
+        <div className="ml-4">
           <ProfastLogo></ProfastLogo>
-        </a>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
@@ -85,7 +88,10 @@ const Navbar = () => {
               alt="Profile Picture"
               className="h-12 w-12 rounded-full mr-2"
             />
-            <button onClick={logOut} className="btn hidden lg:block font-bold btn-error mr-2">
+            <button
+              onClick={logOut}
+              className="btn hidden lg:block font-bold btn-error mr-2"
+            >
               Logout
             </button>
           </>

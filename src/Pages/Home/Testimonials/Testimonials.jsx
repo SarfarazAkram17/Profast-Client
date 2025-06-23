@@ -100,9 +100,9 @@ const Testimonials = () => {
         <div className="flex justify-center mb-6">
           <img src={boxes} alt="Box Icon" />
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-[#003844] mb-4">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-[#003844] mb-4">
           What our customers are saying
-        </h2>
+        </h1>
         <p className="text-sm text-gray-600 mb-10">
           Delivering trust and reliability — hear how our customers use our
           courier service to streamline personal and business deliveries.

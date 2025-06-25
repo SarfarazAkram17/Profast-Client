@@ -13,8 +13,8 @@ const Footer = () => {
       <NavLink className="px-4 py-1 font-semibold rounded-full" to="/aboutUs">
         About Us
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/services">
-        Services
+      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/sendParcel">
+        Send Parcel
       </NavLink>
       <NavLink className="px-4 py-1 font-semibold rounded-full" to="/coverage">
         Coverage

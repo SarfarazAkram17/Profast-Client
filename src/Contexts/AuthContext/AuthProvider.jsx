@@ -17,7 +17,7 @@ googleProvider.addScope("email");
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-//   const userEmail = user?.email || user?.providerData[0]?.email;
+  const userEmail = user?.email || user?.providerData[0]?.email;
 //   const uid = user?.uid;
 
   const createUser = (email, password) => {
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     // uid: uid || "",
-    // userEmail: userEmail || "",
+    userEmail: userEmail || "",
     loading,
     createUser,
     loginUser,

@@ -8,6 +8,9 @@ import Coverage from "../Pages/Coverage/Coverage";
 import Lottie from "lottie-react";
 
 import loader from "../assets/animations/loading.json";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import SendParcel from "../Pages/SendParcel/SendParcel";
+import PrivateRoute from "../Routes/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +32,18 @@ export const router = createBrowserRouter([
             className="h-[50vh] w-auto"
           ></Lottie>
         ),
+      },
+      {
+        path: "/sendParcel",
+        element: (
+          <PrivateRoute>
+            <SendParcel></SendParcel>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "*",
+        Component: ErrorPage,
       },
     ],
   },

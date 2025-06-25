@@ -6,7 +6,7 @@ const Coverage = () => {
   const serviceCenters = useLoaderData();
   const [search, setSearch] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,43 +19,45 @@ const Coverage = () => {
         We are available in 64 districts
       </h1>
 
-<div>
-          <form onSubmit={handleSubmit} className="relative">
-        <label className="input rounded-full w-[50%] bg-[#F0F3F6]">
-          <svg
-            className="h-[1em] opacity-50"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2.5"
-              fill="none"
-              stroke="currentColor"
+      <div>
+        <form onSubmit={handleSubmit} className="relative">
+          <label className="input rounded-full w-[50%] bg-[#F0F3F6]">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
             >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <input
-            type="search"
-            required
-            placeholder="Search here"
-            defaultValue={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </label>
-        <button
-          type="submit"
-          className="btn btn-primary absolute right-[50%] z-10 font-bold px-8 rounded-full text-black"
-        >
-          Search
-        </button>
-      </form>
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input
+              type="search"
+              required
+              placeholder="Search here"
+              defaultValue={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </label>
+          <button
+            type="submit"
+            className="btn btn-primary absolute right-[50%] z-10 font-bold px-8 rounded-full text-black"
+          >
+            Search
+          </button>
+        </form>
 
-      {error && <p className="text-red-500 font-semibold text-xs mt-4">{error}</p>}
-</div>
+        {error && (
+          <p className="text-red-500 font-semibold text-xs mt-4">{error}</p>
+        )}
+      </div>
 
       <hr className="text-gray-300" />
 

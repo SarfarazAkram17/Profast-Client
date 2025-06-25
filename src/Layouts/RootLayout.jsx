@@ -14,7 +14,7 @@ const RootLayout = () => {
   }, []);
 
   return (
-    <div className="xl:container bg-[#EAECED] px-3 md:px-8 py-5 mx-auto">
+    <div className="max-w-7xl bg-[#EAECED] px-3 md:px-8 py-5 mx-auto">
       <Navbar></Navbar>
       <div className="my-10">
         <Outlet></Outlet>

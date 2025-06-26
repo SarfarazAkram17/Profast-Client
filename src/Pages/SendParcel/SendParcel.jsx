@@ -73,7 +73,7 @@ const SendParcel = () => {
     let extraCost = 0;
     let breakdown = "";
 
-    if (data.type === "document") {
+    if (data.type === "Document") {
       baseCost = isSameDistrict ? 60 : 80;
       breakdown = `Document delivery ${
         isSameDistrict ? "within" : "outside"
@@ -81,7 +81,7 @@ const SendParcel = () => {
     } else {
       if (weight <= 3) {
         baseCost = isSameDistrict ? 110 : 150;
-        breakdown = `Non-document up to 3kg ${
+        breakdown = `Non-Document up to 3kg ${
           isSameDistrict ? "within" : "outside"
         } the district.`;
       } else {
@@ -92,7 +92,7 @@ const SendParcel = () => {
         extraCost = perKgCharge + districtExtra;
 
         breakdown = `
-        Non-document over 3kg ${
+        Non-Document over 3kg ${
           isSameDistrict ? "within" : "outside"
         } the district.<br/>
         Extra charge: ৳40 x ${extraKg.toFixed(2)}kg = ৳${Math.round(
@@ -111,7 +111,7 @@ const SendParcel = () => {
       html: `
       <div class="text-left text-base space-y-2">
         <p><strong>Parcel Type:</strong> ${
-          data.type === "document" ? "Document" : "Non-Document"
+          data.type === "Document" ? "Document" : "Non-Document"
         }</p>
         <p><strong>Weight:</strong> ${fixedWeight} kg</p>
         <p><strong>Delivery Zone:</strong> ${
@@ -189,7 +189,7 @@ const SendParcel = () => {
             <input
               type="radio"
               name="radio-12"
-              value="document"
+              value="Document"
               {...register("type", { required: "Type is required" })}
               className="radio bg-[#E2E2E2] text-white checked:bg-[#0AB010]"
             />
@@ -199,11 +199,11 @@ const SendParcel = () => {
             <input
               type="radio"
               name="radio-12"
-              value="not-document"
+              value="Non-Document"
               {...register("type", { required: "Type is required" })}
               className="radio bg-[#E2E2E2] text-white checked:bg-[#0AB010]"
             />
-            Not-Document
+            Non-Document
           </label>
         </div>
         {errors.type && (
@@ -236,8 +236,8 @@ const SendParcel = () => {
               placeholder="Parcel Weight (kg)"
               {...register("weight", {
                 required:
-                  type === "not-document"
-                    ? "Weight is required for non-document parcels"
+                  type === "Non-Document"
+                    ? "Weight is required for Non-Document parcels"
                     : false,
               })}
               className="input input-bordered w-full mt-2"

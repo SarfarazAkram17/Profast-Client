@@ -11,6 +11,8 @@ import loader from "../assets/animations/loading.json";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import SendParcel from "../Pages/SendParcel/SendParcel";
 import PrivateRoute from "../Routes/PrivateRoute";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import MyParcels from "../Pages/Dashboard/MyParcels/MyParcels";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +60,20 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "myParcels",
+        Component: MyParcels,
       },
     ],
   },

@@ -16,14 +16,24 @@ const Navbar = () => {
       <NavLink className="px-4 py-1 font-semibold rounded-full" to="/aboutUs">
         About Us
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/sendParcel">
+
+      {user && (
+        <NavLink
+          className="px-4 py-1 font-semibold rounded-full"
+          to="/dashboard"
+        >
+          Dashboard
+        </NavLink>
+      )}
+
+      <NavLink
+        className="px-4 py-1 font-semibold rounded-full"
+        to="/sendParcel"
+      >
         Send Parcel
       </NavLink>
       <NavLink className="px-4 py-1 font-semibold rounded-full" to="/coverage">
         Coverage
-      </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/pricing">
-        Pricing
       </NavLink>
     </>
   );
@@ -86,11 +96,11 @@ const Navbar = () => {
             <img
               src={user.photoURL}
               alt="Profile Picture"
-              className="h-12 w-12 rounded-full mr-2"
+              className="h-11 w-11 rounded-full mr-2"
             />
             <button
               onClick={logOut}
-              className="btn hidden lg:block font-bold btn-error mr-2"
+              className="btn btn-sm hidden lg:block font-bold btn-error mr-2"
             >
               Logout
             </button>
@@ -98,14 +108,14 @@ const Navbar = () => {
         ) : (
           <Link to="/login">
             {" "}
-            <button className="btn btn-primary border-2 rounded-lg font-bold text-black shadow-none btn-outline mr-2">
+            <button className="btn btn-sm btn-primary border-2 rounded-lg font-bold text-black shadow-none btn-outline mr-2">
               Login
             </button>
           </Link>
         )}
         <Link>
           {" "}
-          <button className="btn hidden lg:flex bg-primary border-2 rounded-lg font-bold hover:bg-transparent border-primary text-black shadow-none">
+          <button className="btn btn-sm hidden lg:flex bg-primary border-2 rounded-lg font-bold hover:bg-transparent border-primary text-black shadow-none">
             Be a rider <RxArrowTopRight size={18} className="-ml-2" />
           </button>
         </Link>

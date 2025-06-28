@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
 import ProfastLogo from "../Pages/Shared/ProfastLogo/ProfastLogo";
+import { FiPackage, FiCreditCard, FiMapPin, FiUser, FiHome } from "react-icons/fi";
+import { MdHome } from "react-icons/md";
 
 const DashboardLayout = () => {
   return (
@@ -43,15 +45,24 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-64 p-4">
+        <ul className="menu bg-base-200 text-base-content min-h-full w-60 p-4">
           {/* Sidebar content here */}
           <ProfastLogo></ProfastLogo>
           <br /> <br />
           <li className="my-2">
-            <NavLink to="/dashboard/myParcels">My Parcels</NavLink>
+            <NavLink to="/dashboard" end><FiHome /> Home</NavLink>
           </li>
           <li className="my-2">
-            <NavLink to="/sendParcel">Send Parcel</NavLink>
+            <NavLink to="/dashboard/myParcels"><FiPackage /> My Parcels</NavLink>
+          </li>
+          <li className="my-2">
+            <NavLink to="/dashboard/paymentHistory"><FiCreditCard /> Payment History</NavLink>
+          </li>
+          <li className="my-2">
+            <NavLink to="/dashboard/track"><FiMapPin /> Track a Package</NavLink>
+          </li>
+          <li className="my-2">
+            <NavLink to="/dashboard/profile"><FiUser /> Update Profile</NavLink>
           </li>
         </ul>
       </div>

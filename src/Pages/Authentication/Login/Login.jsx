@@ -9,12 +9,11 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loginUser, user } = useAuth();
+  const { loginUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(user?.photoURL);
   const {
     register,
     handleSubmit,

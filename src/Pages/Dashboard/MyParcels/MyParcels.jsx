@@ -5,13 +5,15 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Lottie from "lottie-react";
 import loader from "../../../assets/animations/loading.json";
 import { IoMdEye } from "react-icons/io";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router";
 
 const MyParcels = () => {
   const axiosSecure = useAxiosSecure();
   const { userEmail } = useAuth();
+  const navigate = useNavigate();
 
   const {
     isPending,
@@ -24,6 +26,10 @@ const MyParcels = () => {
       return res.data;
     },
   });
+
+  const handlePay = (id) => {
+    navigate(`/dashboard/payment/${id}`);
+  };
 
   if (isPending) {
     return (
@@ -115,13 +121,17 @@ const MyParcels = () => {
                         </div>
                       }
                     </td>
-                    <td className="flex gap-1 justify-center">
-                      {" "}
+                    <td className="flex gap-1 justify-end">
+                      {parcel.payment_status === "unpaid" && (
+                        <button
+                          onClick={() => handlePay(parcel._id)}
+                          className="btn-primary font-bold btn rounded-sm px-2.5 block text-black"
+                        >
+                          Pay
+                        </button>
+                      )}{" "}
                       <button className="bg-[#b18a56] btn text-lg rounded-sm px-2.5 block text-white">
                         <IoMdEye size={17} />
-                      </button>
-                      <button className="bg-[#3C393B] btn text-lg rounded-sm px-2.5 block text-white">
-                        <MdEdit size={17} />
                       </button>
                       <button
                         onClick={() => handleAssignmentDelete(parcel._id)}
@@ -142,32 +152,3 @@ const MyParcels = () => {
 };
 
 export default MyParcels;
-
-/**
- * {
-    "_id": "685c1509d9ba03674f62b32b",
-    "type": "not-document",
-    "title": "Mangoes",
-    "weight": 10,
-    "senderName": "Mahi",
-    "senderRegion": "Dhaka",
-    "senderAddress": "Farmgate",
-    "senderContactNo": "01973254091",
-    "senderDistrict": "Gazipur",
-    "senderWirehouse": "Kaliakair",
-    "pickupInstruction": "Pickup perfectly",
-    "recieverName": "Bilkis",
-    "recieverRegion": "Rangpur",
-    "recieverAddress": "koya bansbari",
-    "recieverContactNo": "01302313568",
-    "recieverDistrict": "Nilphamari",
-    "recieverWirehouse": "Saidpur",
-    "deliveryInstruction": "Deliver perfectly",
-    "created_by": "sarfaraz.akram055@gmail.com",
-    "creation_date": "2025-06-25T15:26:01.102Z",
-    "payment_status": "unpaid",
-    "delivery_status": "not_collected",
-    "cost": 470,
-    "tracking_id": "PCL-20250625-7ZDOA"
-}
- */

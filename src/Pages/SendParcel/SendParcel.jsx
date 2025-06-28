@@ -175,7 +175,7 @@ const SendParcel = () => {
   return (
     <div className="py-16 px-4 sm:px-8 md:px-12 bg-white rounded-2xl">
       <h1 className="text-2xl md:text-4xl font-extrabold text-[#03373D] mb-6">
-        Add Parcel
+        Send a Parcel
       </h1>
       <div className="divider mb-3"></div>
 

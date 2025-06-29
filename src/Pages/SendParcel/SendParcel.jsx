@@ -7,7 +7,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const axiosSecure = useAxiosSecure();
-  const { userEmail } = useAuth();
+  const { userEmail, uid } = useAuth();
   const [regions, setRegions] = useState([]);
   const [serviceCenters, setServiceCenters] = useState([]);
 
@@ -152,7 +152,7 @@ const SendParcel = () => {
         };
 
         axiosSecure
-          .post("/parcels", parcelData)
+          .post(`/parcels?uid=${uid}`, parcelData)
           .then((res) => {
             if (res.data.insertedId) {
               Swal.fire({

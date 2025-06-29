@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const userEmail = user?.email || user?.providerData[0]?.email;
-//   const uid = user?.uid;
+  const uid = user?.uid;
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -30,12 +30,8 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUserProfile = (name, photo) => {
-    setLoading(true);
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo
-    });
+  const updateUserProfile = (profileInfo) => {
+    return updateProfile(auth.currentUser, profileInfo);
   };
 
   const continueWithGoogle = () => {
@@ -54,13 +50,13 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     });
     return () => {
-        unsubscribe();
+      unsubscribe();
     };
-}, []);
+  }, []);
 
   const authInfo = {
     user,
-    // uid: uid || "",
+    uid: uid || "",
     userEmail: userEmail || "",
     loading,
     createUser,

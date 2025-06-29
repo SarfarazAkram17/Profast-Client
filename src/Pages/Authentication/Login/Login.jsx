@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAxios from "../../../Hooks/useAxios";
 
 const Login = () => {
+  const axiosInstance = useAxios();
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -29,11 +31,15 @@ const Login = () => {
     loginUser(email, password)
       .then(() => {
         toast.success("You logged in successfully");
-        setLoading(false);
+
+        axiosInstance.post("/users", { email });
+
         navigate(location.state || "/");
       })
       .catch((error) => {
         toast.error(error.message);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };

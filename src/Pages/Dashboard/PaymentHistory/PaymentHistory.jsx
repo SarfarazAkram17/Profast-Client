@@ -6,13 +6,13 @@ import loader from "../../../assets/animations/loading.json";
 import Lottie from "lottie-react";
 
 const PaymentHistory = () => {
-  const { userEmail } = useAuth();
+  const { userEmail, uid } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const { isPending, data: payments = [] } = useQuery({
     queryKey: ["payments", userEmail],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payments?email=${userEmail}`);
+      const res = await axiosSecure.get(`/payments?email=${userEmail}&uid=${uid}`);
       return res.data;
     },
   });
@@ -60,7 +60,7 @@ const PaymentHistory = () => {
               <tbody>
                 {payments.map((payment, index) => (
                   <tr key={payment._id}>
-                    <td>{index + 1}</td>{" "}
+                    <td>{index + 1}</td>
                     <td
                       className="truncate max-w-[150px] overflow-hidden whitespace-nowrap"
                       title={payment.parcelId}

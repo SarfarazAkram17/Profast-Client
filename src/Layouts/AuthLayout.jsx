@@ -8,7 +8,7 @@ const AuthLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="xl:container mx-auto px-3 md:px-8 py-5 bg-[#FAFDF0] flex flex-col-reverse md:flex-row justify-center items-center">
+    <div className="xl:container mx-auto px-3 md:px-8 py-5 bg-[#FAFDF0] flex flex-col sm:flex-row justify-center items-center">
       <div className="flex-1">
         <Outlet></Outlet>
       </div>

@@ -7,8 +7,11 @@ import { Link, useLocation, useNavigate } from "react-router";
 import userImage from "../../../assets/image-upload-icon.png";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import axios from "axios";
+import useAxios from "../../../Hooks/useAxios";
 
 const Register = () => {
+  const axiosInstance = useAxios();
   const [showPassword, setShowPassword] = useState(false);
   const [preview, setPreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -54,24 +57,38 @@ const Register = () => {
 
     const imgbbApiKey = import.meta.env.VITE_imgbb_key;
 
-    fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-      method: "POST",
-      body: imageData,
-    })
-      .then((res) => res.json())
-      .then((imgData) => {
+    axios
+      .post(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, imageData)
+      .then((res) => {
+        const imgData = res.data;
         if (!imgData.success) {
           toast.error("Image upload failed");
           return;
         }
 
         const photo = imgData.data.url;
+
         createUser(email, password)
-          .then(() => {
+          .then(async () => {
             toast.success("Registered successfully");
-            updateUserProfile(name, photo).catch((error) =>
+
+            const userInfo = {
+              email,
+              role: "user", //default role
+              created_at: new Date().toISOString(),
+              last_log_in: new Date().toISOString(),
+            };
+
+            axiosInstance.post("/users", userInfo);
+
+            const userProfile = {
+              displayName: name,
+              photoURL: photo,
+            };
+            updateUserProfile(userProfile).catch((error) =>
               toast.error(error.message)
             );
+
             navigate(location.state || "/");
           })
           .catch((error) => {

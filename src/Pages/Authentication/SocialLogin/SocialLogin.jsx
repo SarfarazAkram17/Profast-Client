@@ -1,24 +1,34 @@
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import useAuth from "../../../Hooks/useAuth";
+import useAxios from "../../../Hooks/useAxios";
 
 const SocialLogin = ({ state, message }) => {
+  const axiosInstance = useAxios();
   const { continueWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
     continueWithGoogle()
-      .then(() => {
-        navigate(state || "/");
+      .then((res) => {
         toast.success(message);
+        const email = res.user?.providerData[0]?.email;
+
+        const userInfo = {
+          email,
+          role: "user", //default role
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString(),
+        };
+
+        axiosInstance.post("/users", userInfo);
+
+        navigate(state || "/");
       })
       .catch((error) => toast.error(error.message));
   };
   return (
-    <button
-      onClick={handleGoogleLogin}
-      className="btn btn-primary text-black"
-    >
+    <button onClick={handleGoogleLogin} className="btn btn-primary text-black">
       <svg
         aria-label="Google logo"
         width="25"

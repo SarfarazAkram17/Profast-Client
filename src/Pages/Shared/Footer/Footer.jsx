@@ -3,24 +3,43 @@ import { FaFacebook, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { NavLink } from "react-router";
 import ProfastLogo from "../ProfastLogo/ProfastLogo";
+import useAuth from "../../../Hooks/useAuth";
 
 const Footer = () => {
+  const { user } = useAuth();
+
   const navItems = (
     <>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/">
+      <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/">
         Home
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/aboutUs">
+      <NavLink
+        className="px-4 py-1 font-semibold rounded-full text-xs"
+        to="/aboutUs"
+      >
         About Us
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/sendParcel">
+
+      {user && (
+        <NavLink
+          className="px-4 py-1 font-semibold rounded-full text-xs"
+          to="/dashboard"
+        >
+          Dashboard
+        </NavLink>
+      )}
+
+      <NavLink
+        className="px-4 py-1 font-semibold rounded-full text-xs"
+        to="/sendParcel"
+      >
         Send Parcel
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/coverage">
+      <NavLink
+        className="px-4 py-1 font-semibold rounded-full text-xs"
+        to="/coverage"
+      >
         Coverage
-      </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/pricing">
-        Pricing
       </NavLink>
     </>
   );

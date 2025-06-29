@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router";
 
 const MyParcels = () => {
   const axiosSecure = useAxiosSecure();
-  const { userEmail } = useAuth();
+  const { userEmail, uid } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -22,7 +22,7 @@ const MyParcels = () => {
   } = useQuery({
     queryKey: ["my-parcels", userEmail],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?${userEmail}`);
+      const res = await axiosSecure.get(`/parcels?email=${userEmail}&uid=${uid}`);
       return res.data;
     },
   });
@@ -42,10 +42,6 @@ const MyParcels = () => {
   }
 
   const handleAssignmentDelete = (id) => {
-    if (!userEmail) {
-      return toast.warn("Please login first");
-    }
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -57,7 +53,7 @@ const MyParcels = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`/parcels/${id}`)
+          .delete(`/parcels/${id}?uid=${uid}`)
           .then((res) => {
             if (res.data.deletedCount) {
               toast.success("Your sended parcel is deleted.");

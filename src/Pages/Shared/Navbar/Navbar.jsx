@@ -10,16 +10,16 @@ const Navbar = () => {
 
   const navItems = (
     <>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/">
+      <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/">
         Home
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/aboutUs">
+      <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/aboutUs">
         About Us
       </NavLink>
 
       {user && (
         <NavLink
-          className="px-4 py-1 font-semibold rounded-full"
+          className="px-4 py-1 font-semibold rounded-full text-xs"
           to="/dashboard"
         >
           Dashboard
@@ -27,12 +27,12 @@ const Navbar = () => {
       )}
 
       <NavLink
-        className="px-4 py-1 font-semibold rounded-full"
+        className="px-4 py-1 font-semibold rounded-full text-xs"
         to="/sendParcel"
       >
         Send Parcel
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full" to="/coverage">
+      <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/coverage">
         Coverage
       </NavLink>
     </>
@@ -70,13 +70,13 @@ const Navbar = () => {
           >
             {navItems}
             {user && (
-              <button onClick={logOut} className="btn btn-error mb-2 font-bold">
+              <button onClick={logOut} className="btn btn-error mb-2 font-bold btn-sm">
                 Logout
               </button>
             )}
             <Link>
               {" "}
-              <button className="btn bg-primary border-2 w-full rounded-lg font-bold hover:bg-transparent border-primary text-black shadow-none">
+              <button className="btn bg-primary border-2 w-full rounded-lg btn-sm font-bold hover:bg-transparent border-primary text-black shadow-none">
                 Be a rider <RxArrowTopRight size={18} />
               </button>
             </Link>

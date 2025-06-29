@@ -14,13 +14,14 @@ const PaymentForm = () => {
   const [error, setError] = useState("");
   const { parcelId } = useParams();
   const axiosSecure = useAxiosSecure();
-  const { user, userEmail } = useAuth();
+  const { user, userEmail, uid } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const { data: parcelInfo, isPending } = useQuery({
     queryKey: ["parcels", parcelId],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels/${parcelId}`);
+      const res = await axiosSecure.get(`/parcels/${parcelId}?uid=${uid}`);
       return res.data;
     },
   });
@@ -38,16 +39,19 @@ const PaymentForm = () => {
   const amount = parcelInfo.cost;
   const amountInCents = amount * 100;
 
-  const handleSubmit = async (e) => {
+  const handlePay = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!stripe || !elements) {
+      setLoading(false);
       return;
     }
 
     const card = elements.getElement(CardElement);
 
     if (!card) {
+      setLoading(false);
       return;
     }
 
@@ -58,10 +62,12 @@ const PaymentForm = () => {
 
     if (error) {
       setError(error.message);
+      setLoading(false);
     } else {
       setError("");
+        setLoading(false);
 
-      const res = await axiosSecure.post("/create-payment-intent", {
+      const res = await axiosSecure.post(`/create-payment-intent?uid=${uid}`, {
         amountInCents,
         parcelId,
       });
@@ -79,6 +85,7 @@ const PaymentForm = () => {
 
       if (result.error) {
         setError(result.error.message);
+        setLoading(false);
       } else {
         setError("");
         if (result.paymentIntent.status === "succeeded") {
@@ -91,7 +98,7 @@ const PaymentForm = () => {
             paymentMethod: result.paymentIntent.payment_method_types,
           };
 
-          const paymentRes = await axiosSecure.post("/payments", paymentData);
+          const paymentRes = await axiosSecure.post(`/payments?uid=${uid}`, paymentData);
           if (paymentRes.data.insertedId) {
             await Swal.fire({
               icon: "success",
@@ -99,7 +106,7 @@ const PaymentForm = () => {
               html: `<strong>Transaction ID:</strong> <code>${transactionId}</code>`,
               confirmButtonText: "Go to My Parcels",
             });
-
+            setLoading(false);
             navigate("/dashboard/myParcels");
           }
         }
@@ -109,16 +116,20 @@ const PaymentForm = () => {
   return (
     <div>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handlePay}
         className="rounded-xl space-y-4 bg-white p-6 shadow-md w-full max-w-md mx-auto"
       >
         <CardElement className="p-2 border rounded"></CardElement>
         <button
           type="submit"
           className="btn btn-primary text-black w-full mt-6"
-          disabled={!stripe}
+          disabled={!stripe || loading}
         >
-          Pay ৳{amount}
+          {loading ? (
+            <span className="loading loading-spinner loading-md"></span>
+          ) : (
+            `Pay ৳${amount}`
+          )}
         </button>
         {error && <p className="text-xs text-red-500 font-semibold">{error}</p>}
       </form>

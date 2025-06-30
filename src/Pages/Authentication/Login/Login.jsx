@@ -4,9 +4,9 @@ import ProfastLogo from "../../Shared/ProfastLogo/ProfastLogo";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAxios from "../../../Hooks/useAxios";
+import useAuth from "../../../Hooks/useAuth";
 
 const Login = () => {
   const axiosInstance = useAxios();

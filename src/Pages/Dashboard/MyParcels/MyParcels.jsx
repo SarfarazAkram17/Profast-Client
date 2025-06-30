@@ -1,7 +1,5 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Lottie from "lottie-react";
 import loader from "../../../assets/animations/loading.json";
 import { IoMdEye } from "react-icons/io";
@@ -9,6 +7,8 @@ import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const MyParcels = () => {
   const axiosSecure = useAxiosSecure();

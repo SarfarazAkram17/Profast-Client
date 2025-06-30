@@ -13,7 +13,10 @@ const Navbar = () => {
       <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/">
         Home
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/aboutUs">
+      <NavLink
+        className="px-4 py-1 font-semibold rounded-full text-xs"
+        to="/aboutUs"
+      >
         About Us
       </NavLink>
 
@@ -32,7 +35,10 @@ const Navbar = () => {
       >
         Send Parcel
       </NavLink>
-      <NavLink className="px-4 py-1 font-semibold rounded-full text-xs" to="/coverage">
+      <NavLink
+        className="px-4 py-1 font-semibold rounded-full text-xs"
+        to="/coverage"
+      >
         Coverage
       </NavLink>
     </>
@@ -70,11 +76,14 @@ const Navbar = () => {
           >
             {navItems}
             {user && (
-              <button onClick={logOut} className="btn btn-error mb-2 font-bold btn-sm">
+              <button
+                onClick={logOut}
+                className="btn btn-error mb-2 font-bold btn-sm"
+              >
                 Logout
               </button>
             )}
-            <Link>
+            <Link to="/beARider">
               {" "}
               <button className="btn bg-primary border-2 w-full rounded-lg btn-sm font-bold hover:bg-transparent border-primary text-black shadow-none">
                 Be a rider <RxArrowTopRight size={18} />
@@ -113,7 +122,7 @@ const Navbar = () => {
             </button>
           </Link>
         )}
-        <Link>
+        <Link to="/beARider">
           {" "}
           <button className="btn btn-sm hidden lg:flex bg-primary border-2 rounded-lg font-bold hover:bg-transparent border-primary text-black shadow-none">
             Be a rider <RxArrowTopRight size={18} className="-ml-2" />

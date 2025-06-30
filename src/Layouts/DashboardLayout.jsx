@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router";
 import ProfastLogo from "../Pages/Shared/ProfastLogo/ProfastLogo";
 import { FiPackage, FiCreditCard, FiMapPin, FiUser, FiHome } from "react-icons/fi";
-import { MdHome } from "react-icons/md";
+import { FaUserCheck, FaUserClock } from "react-icons/fa";
 
 const DashboardLayout = () => {
   return (
@@ -62,8 +62,14 @@ const DashboardLayout = () => {
             <NavLink to="/dashboard/track"><FiMapPin /> Track a Package</NavLink>
           </li>
           <li className="my-2">
-            <NavLink to="/dashboard/profile"><FiUser /> Update Profile</NavLink>
+            <NavLink to="/dashboard/updateProfile"><FiUser /> Update Profile</NavLink>
           </li>
+          <li className="my-2">
+            <NavLink to="/dashboard/activeRiders"><FaUserCheck /> Active Riders</NavLink>
+           </li>
+           <li className="my-2">
+            <NavLink to="/dashboard/pendingRiders"><FaUserClock /> Pending Riders</NavLink>
+           </li>
         </ul>
       </div>
     </div>

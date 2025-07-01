@@ -8,7 +8,12 @@ import {
   FiUser,
   FiHome,
 } from "react-icons/fi";
-import { FaUserCheck, FaUserClock, FaUserShield } from "react-icons/fa";
+import {
+  FaMotorcycle,
+  FaUserCheck,
+  FaUserClock,
+  FaUserShield,
+} from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 
 const DashboardLayout = () => {
@@ -57,7 +62,7 @@ const DashboardLayout = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full w-60 p-4">
           {/* Sidebar content here */}
           <ProfastLogo></ProfastLogo>
-          <br /> 
+          <br />
           <li className="my-1">
             <NavLink to="/dashboard" end>
               <FiHome /> Home
@@ -94,6 +99,11 @@ const DashboardLayout = () => {
               <li className="my-1">
                 <NavLink to="/dashboard/pendingRiders">
                   <FaUserClock /> Pending Riders
+                </NavLink>
+              </li>
+              <li className="my-1">
+                <NavLink to="/dashboard/assignRider">
+                  <FaMotorcycle /> Assign Rider
                 </NavLink>
               </li>
               <li className="my-1">

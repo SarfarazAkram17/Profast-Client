@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaSearch, FaUserSlash } from "react-icons/fa";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import loader from "../../../assets/animations/loading.json";
 import Lottie from "lottie-react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ActiveRiders = () => {
   const { userEmail, uid } = useAuth();
@@ -133,6 +133,7 @@ const ActiveRiders = () => {
                 <th>Bike Brand</th>
                 <th>Bike Registration No</th>
                 <th>Status</th>
+                <th>Work Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -156,7 +157,12 @@ const ActiveRiders = () => {
                   <td>{rider.riderBikeRegistrationNo}</td>
                   <td>
                     <span className="badge badge-success badge-xs font-bold h-auto rounded-full text-xs">
-                      Active
+                      {rider.status}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`badge ${rider.work_status === 'available' ? 'badge-success' : 'badge-warning'} badge-xs font-bold h-auto rounded-full text-xs`}>
+                      {rider.work_status}
                     </span>
                   </td>
                   <td>

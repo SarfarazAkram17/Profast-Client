@@ -8,7 +8,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const PendingRiders = () => {
-  const { uid } = useAuth();
+  const { userEmail, uid } = useAuth();
   const [selectedRider, setSelectedRider] = useState(null);
   const axiosSecure = useAxiosSecure();
 
@@ -19,7 +19,7 @@ const PendingRiders = () => {
   } = useQuery({
     queryKey: ["pending-riders"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/riders/pending?uid=${uid}`);
+      const res = await axiosSecure.get(`/riders/pending?email=${userEmail}&uid=${uid}`);
       return res.data;
     },
   });
@@ -34,7 +34,7 @@ const PendingRiders = () => {
     );
   }
 
-  const handleDecision = async (id, action) => {
+  const handleDecision = async (id, action, email) => {
     const confirm = await Swal.fire({
       title: `${action === "approve" ? "Approve" : "Reject"} Application?`,
       icon: "warning",
@@ -46,8 +46,9 @@ const PendingRiders = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axiosSecure.patch(`/riders/${id}/status?uid=${uid}`, {
+      await axiosSecure.patch(`/riders/${id}/status?email=${userEmail}&uid=${uid}`, {
         status: action === "approve" ? "active" : "rejected",
+        email,
       });
 
       refetch();
@@ -116,13 +117,17 @@ const PendingRiders = () => {
                         <FaEye />
                       </button>
                       <button
-                        onClick={() => handleDecision(rider._id, "approve")}
+                        onClick={() =>
+                          handleDecision(rider._id, "approve", rider.riderEmail)
+                        }
                         className="btn btn-xs btn-success"
                       >
                         <FaCheck />
                       </button>
                       <button
-                        onClick={() => handleDecision(rider._id, "reject")}
+                        onClick={() =>
+                          handleDecision(rider._id, "reject", rider.riderEmail)
+                        }
                         className="btn btn-xs btn-error"
                       >
                         <FaTimes />

@@ -46,7 +46,10 @@ const Navbar = () => {
 
   const logOut = () => {
     logOutUser()
-      .then(() => toast.warn("You logged out successfully"))
+      .then(() => {
+        toast.warn("You logged out successfully");
+        window.location.reload();
+      })
       .catch((error) => toast.error(error.message));
   };
   return (

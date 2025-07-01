@@ -8,7 +8,7 @@ import loader from "../../../assets/animations/loading.json";
 import Lottie from "lottie-react";
 
 const ActiveRiders = () => {
-  const { uid } = useAuth();
+  const { userEmail, uid } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -21,7 +21,9 @@ const ActiveRiders = () => {
   } = useQuery({
     queryKey: ["active-riders"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/riders/active?uid=${uid}`);
+      const res = await axiosSecure.get(
+        `/riders/active?email=${userEmail}&uid=${uid}`
+      );
       return res.data;
     },
   });
@@ -48,9 +50,12 @@ const ActiveRiders = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axiosSecure.patch(`/riders/${id}/status?uid=${uid}`, {
-        status: "deactivated",
-      });
+      await axiosSecure.patch(
+        `/riders/${id}/status?email=${userEmail}&uid=${uid}`,
+        {
+          status: "deactivated",
+        }
+      );
 
       Swal.fire("Done", "Rider has been deactivated", "success");
 
@@ -78,7 +83,7 @@ const ActiveRiders = () => {
             Active Riders
           </h1>
 
-          <div className="mb-12 flex items-center gap-2">
+          <div className="mb-12">
             <label className="input">
               <svg
                 className="h-[1em] opacity-50"
@@ -106,10 +111,6 @@ const ActiveRiders = () => {
             </label>
           </div>
         </>
-      )}
-
-      {error && (
-        <p className="text-center text-red-500">Failed to load riders</p>
       )}
 
       {!isLoading && riders.length > 0 && filteredRiders.length === 0 && (
@@ -154,7 +155,7 @@ const ActiveRiders = () => {
                   <td>{rider.riderBikeBrand}</td>
                   <td>{rider.riderBikeRegistrationNo}</td>
                   <td>
-                    <span className="badge badge-success h-auto rounded-full text-xs">
+                    <span className="badge badge-success badge-xs font-bold h-auto rounded-full text-xs">
                       Active
                     </span>
                   </td>

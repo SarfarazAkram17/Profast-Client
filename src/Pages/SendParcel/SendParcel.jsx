@@ -4,12 +4,14 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
 
 const SendParcel = () => {
   const axiosSecure = useAxiosSecure();
   const { userEmail, uid } = useAuth();
   const [regions, setRegions] = useState([]);
   const [serviceCenters, setServiceCenters] = useState([]);
+  const navigate = useNavigate();
 
   const generateTrackingID = () => {
     const date = new Date();
@@ -153,15 +155,16 @@ const SendParcel = () => {
 
         axiosSecure
           .post(`/parcels?uid=${uid}`, parcelData)
-          .then((res) => {
-            if (res.data.insertedId) {
-              Swal.fire({
-                title: "Redirecting...",
-                text: "Proceeding to payment gateway.",
+          .then(async (res) => {
+            const id = res.data.insertedId
+            if (id) {
+              await Swal.fire({
+                title: "We redirecting you to the payment page.",
+                text: "After payment your parcel assign to a rider soon.",
                 icon: "success",
-                timer: 1500,
-                showConfirmButton: false,
               });
+              navigate(`/dashboard/payment/${id}`);
+
               reset();
             }
           })

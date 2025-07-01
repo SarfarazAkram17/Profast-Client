@@ -35,6 +35,7 @@ const Login = () => {
         axiosInstance.post("/users", { email });
 
         navigate(location.state || "/");
+        window.location.reload();
       })
       .catch((error) => {
         toast.error(error.message);

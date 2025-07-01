@@ -1,10 +1,19 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
 import ProfastLogo from "../Pages/Shared/ProfastLogo/ProfastLogo";
-import { FiPackage, FiCreditCard, FiMapPin, FiUser, FiHome } from "react-icons/fi";
-import { FaUserCheck, FaUserClock } from "react-icons/fa";
+import {
+  FiPackage,
+  FiCreditCard,
+  FiMapPin,
+  FiUser,
+  FiHome,
+} from "react-icons/fi";
+import { FaUserCheck, FaUserClock, FaUserShield } from "react-icons/fa";
+import useUserRole from "../Hooks/useUserRole";
 
 const DashboardLayout = () => {
+  const { role, roleLoading } = useUserRole();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -48,28 +57,52 @@ const DashboardLayout = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full w-60 p-4">
           {/* Sidebar content here */}
           <ProfastLogo></ProfastLogo>
-          <br /> <br />
-          <li className="my-2">
-            <NavLink to="/dashboard" end><FiHome /> Home</NavLink>
+          <br /> 
+          <li className="my-1">
+            <NavLink to="/dashboard" end>
+              <FiHome /> Home
+            </NavLink>
           </li>
-          <li className="my-2">
-            <NavLink to="/dashboard/myParcels"><FiPackage /> My Parcels</NavLink>
+          <li className="my-1">
+            <NavLink to="/dashboard/myParcels">
+              <FiPackage /> My Parcels
+            </NavLink>
           </li>
-          <li className="my-2">
-            <NavLink to="/dashboard/paymentHistory"><FiCreditCard /> Payment History</NavLink>
+          <li className="my-1">
+            <NavLink to="/dashboard/paymentHistory">
+              <FiCreditCard /> Payment History
+            </NavLink>
           </li>
-          <li className="my-2">
-            <NavLink to="/dashboard/track"><FiMapPin /> Track a Package</NavLink>
+          <li className="my-1">
+            <NavLink to="/dashboard/track">
+              <FiMapPin /> Track a Package
+            </NavLink>
           </li>
-          <li className="my-2">
-            <NavLink to="/dashboard/updateProfile"><FiUser /> Update Profile</NavLink>
+          <li className="my-1">
+            <NavLink to="/dashboard/updateProfile">
+              <FiUser /> Update Profile
+            </NavLink>
           </li>
-          <li className="my-2">
-            <NavLink to="/dashboard/activeRiders"><FaUserCheck /> Active Riders</NavLink>
-           </li>
-           <li className="my-2">
-            <NavLink to="/dashboard/pendingRiders"><FaUserClock /> Pending Riders</NavLink>
-           </li>
+          {!roleLoading && role === "admin" && (
+            <>
+              {" "}
+              <li className="my-1">
+                <NavLink to="/dashboard/activeRiders">
+                  <FaUserCheck /> Active Riders
+                </NavLink>
+              </li>
+              <li className="my-1">
+                <NavLink to="/dashboard/pendingRiders">
+                  <FaUserClock /> Pending Riders
+                </NavLink>
+              </li>
+              <li className="my-1">
+                <NavLink to="/dashboard/makeAdmin">
+                  <FaUserShield /> Make Admin
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>

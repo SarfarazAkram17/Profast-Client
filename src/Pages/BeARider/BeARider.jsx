@@ -65,7 +65,7 @@ const BeARider = () => {
             title: "Application Submitted!",
             text: "Your application is pending approval.",
           });
-          
+
           reset();
         }
       })
@@ -77,10 +77,11 @@ const BeARider = () => {
   return (
     <div className="py-16 px-4 sm:px-8 md:px-12 bg-white rounded-2xl">
       <h1 className="text-2xl md:text-4xl font-extrabold mb-6">Be A Rider</h1>
-      <p className="max-w-md text-sm">
-        Enjoy fast, reliable parcel delivery with real-time tracking and zero
-        hassle. From personal packages to business shipments — we deliver on
-        time, every time.
+      <p className="max-w-lg text-xs">
+        Join our team of dedicated riders and become a key player in
+        revolutionizing last-mile delivery. Ensure fast, efficient, and secure
+        parcel distribution while enjoying flexibility, fair compensation, and
+        community impact. Let's deliver excellence—together.
       </p>
       <div className="divider mb-4"></div>
 
@@ -103,6 +104,17 @@ const BeARider = () => {
               />
             </div>
             <div>
+              <label className="lable font-semibold text-xs">Your Email</label>
+              <input
+                type="email"
+                value={userEmail}
+                readOnly
+                disabled
+                {...register("riderEmail")}
+                className="input font-bold input-bordered w-full mt-2"
+              />
+            </div>
+            <div>
               <label className="lable font-semibold text-xs">Your Age</label>
               <input
                 type="number"
@@ -121,17 +133,6 @@ const BeARider = () => {
                   {errors.riderAge.message}
                 </p>
               )}
-            </div>
-            <div>
-              <label className="lable font-semibold text-xs">Your Email</label>
-              <input
-                type="email"
-                value={userEmail}
-                readOnly
-                disabled
-                {...register("riderEmail")}
-                className="input font-bold input-bordered w-full mt-2"
-              />
             </div>
             <div>
               <fieldset className="fieldset">

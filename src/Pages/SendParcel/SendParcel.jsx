@@ -5,10 +5,12 @@ import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
+import useTrackingLogger from "../../Hooks/useTrackingLogger";
 
 const SendParcel = () => {
   const axiosSecure = useAxiosSecure();
-  const { userEmail, uid } = useAuth();
+  const { logTracking } = useTrackingLogger();
+  const { user, userEmail, uid } = useAuth();
   const [regions, setRegions] = useState([]);
   const [serviceCenters, setServiceCenters] = useState([]);
   const navigate = useNavigate();
@@ -76,7 +78,7 @@ const SendParcel = () => {
     let breakdown = "";
 
     if (data.type === "Document") {
-      baseCost = isSameDistrict ? 60 : 80;
+      baseCost = isSameDistrict ? 65 : 80;
       breakdown = `Document delivery ${
         isSameDistrict ? "within" : "outside"
       } the district.`;
@@ -156,7 +158,7 @@ const SendParcel = () => {
         axiosSecure
           .post(`/parcels?uid=${uid}`, parcelData)
           .then(async (res) => {
-            const id = res.data.insertedId
+            const id = res.data.insertedId;
             if (id) {
               await Swal.fire({
                 title: "We redirecting you to the payment page.",
@@ -164,6 +166,13 @@ const SendParcel = () => {
                 icon: "success",
               });
               navigate(`/dashboard/payment/${id}`);
+
+              await logTracking({
+                tracking_id: parcelData.tracking_id,
+                status: 'parcel_created',
+                details: `Created by ${user.displayName}`,
+                updated_by: userEmail,
+              });
 
               reset();
             }

@@ -6,14 +6,17 @@ import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 import Lottie from "lottie-react";
 import loader from "../../../assets/animations/loading.json";
+import useTrackingLogger from "../../../Hooks/useTrackingLogger";
 
 const AssignRider = () => {
   const { userEmail, uid } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const { logTracking } = useTrackingLogger();
   const [selectedParcel, setSelectedParcel] = useState(null);
+  const [selectedRider, setSelectedRider] = useState(null);
   const [riders, setRiders] = useState([]);
   const [loadingRiders, setLoadingRiders] = useState(false);
-  const [showModal, setShowModal] = useState(false); // <-- Added state here
+  const [showModal, setShowModal] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: parcels = [], isLoading } = useQuery({
@@ -30,21 +33,31 @@ const AssignRider = () => {
 
   const { mutateAsync: assignRider, isLoading: isAssigning } = useMutation({
     mutationFn: async ({ parcelId, rider }) => {
+      setSelectedRider(rider);
       const res = await axiosSecure.patch(
         `/parcels/${parcelId}/assign?email=${userEmail}&uid=${uid}`,
         {
           riderId: rider._id,
           riderName: rider.riderName,
-          riderEmail: rider.riderEmail
+          riderEmail: rider.riderEmail,
         }
       );
       return res.data;
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       setShowModal(false);
+
+      await logTracking({
+        tracking_id: selectedParcel.tracking_id,
+        status: "rider_assigned",
+        details: `Assigned to ${selectedRider.riderName}`,
+        updated_by: userEmail,
+      });
+
       Swal.fire("Success", "Rider assigned successfully!", "success").then(
         () => {
           setSelectedParcel(null);
+          setSelectedRider(null);
         }
       );
       queryClient.invalidateQueries(["assignableParcels"]);

@@ -1,7 +1,9 @@
-import React from "react";
+import { toast } from "react-toastify";
 import useAxiosSecure from "./useAxiosSecure";
+import useAuth from "./useAuth";
 
 const useTrackingLogger = () => {
+  const { uid } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const logTracking = async ({
@@ -19,9 +21,9 @@ const useTrackingLogger = () => {
         location,
         updated_by,
       };
-      await axiosSecure.post("/trackings", payload);
+      await axiosSecure.post(`/trackings?uid=${uid}`, payload);
     } catch (error) {
-      console.error("Failed to log tracking:", error);
+      toast.error(error.message);
     }
   };
 

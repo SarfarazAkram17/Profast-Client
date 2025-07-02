@@ -93,6 +93,7 @@ const MyParcels = () => {
                 <tr>
                   <th>#</th>
                   <th>Title</th>
+                  <th>Traking Id</th>
                   <th>Type</th>
                   <th>Created At</th>
                   <th>Cost</th>
@@ -106,6 +107,7 @@ const MyParcels = () => {
                   <tr key={parcel._id}>
                     <th>{index + 1}</th>
                     <td className="max-w-[180px] truncate">{parcel.title}</td>
+                    <td>{parcel.tracking_id}</td>
                     <td>{parcel.type}</td>
                     <td>{formatDate(parcel.creation_date)}</td>
                     <td>{parcel.cost}</td>
@@ -135,19 +137,19 @@ const MyParcels = () => {
                       {parcel.payment_status === "unpaid" && (
                         <button
                           onClick={() => handlePay(parcel._id)}
-                          className="btn-primary font-bold btn rounded-sm px-2.5 block text-black"
+                          className="btn-primary btn-sm font-bold btn rounded-sm px-1.5 block text-black"
                         >
                           Pay
                         </button>
                       )}{" "}
-                      <button className="bg-[#b18a56] btn text-lg rounded-sm px-2.5 block text-white">
-                        <IoMdEye size={17} />
+                      <button className="bg-[#b18a56] btn-sm btn text-lg rounded-sm px-2 block text-white">
+                        <IoMdEye size={15} />
                       </button>
                       <button
                         onClick={() => handleAssignmentDelete(parcel._id)}
-                        className="bg-[#EA4744] btn text-lg rounded-sm px-2.5 block text-white"
+                        className="bg-[#EA4744] btn-sm btn text-lg rounded-sm px-2 block text-white"
                       >
-                        <MdDelete size={17} />
+                        <MdDelete size={15} />
                       </button>
                     </td>
                   </tr>

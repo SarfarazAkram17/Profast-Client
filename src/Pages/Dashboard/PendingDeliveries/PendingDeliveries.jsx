@@ -5,16 +5,15 @@ import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
 import loader from "../../../assets/animations/loading.json";
-// import useTrackingLogger from "../../../hooks/useTrackingLogger";
+import useTrackingLogger from "../../../Hooks/useTrackingLogger";
 
 const PendingDeliveries = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
-  // const { logTracking } = useTrackingLogger();
-  const { userEmail, uid } = useAuth();
+  const { logTracking } = useTrackingLogger();
+  const { user, userEmail, uid } = useAuth();
 
   const [activeParcelId, setActiveParcelId] = useState(null);
-
 
   const { data: parcels = [], isLoading } = useQuery({
     queryKey: ["riderParcels", userEmail],
@@ -27,7 +26,6 @@ const PendingDeliveries = () => {
     },
   });
 
-
   const { mutateAsync: updateStatus } = useMutation({
     mutationFn: async ({ parcel, status }) => {
       const res = await axiosSecure.patch(
@@ -39,14 +37,7 @@ const PendingDeliveries = () => {
       return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["riderParcels"]).then(() => {
-        Swal.fire("Updated!", "Parcel status updated.", "success");
-      });
-      setActiveParcelId(null);
-    },
-    onError: (error) => {
-      Swal.fire(error.message, "Failed to update status.", "error");
-      setActiveParcelId(null);
+      queryClient.invalidateQueries(["riderParcels"]);
     },
   });
 
@@ -60,7 +51,29 @@ const PendingDeliveries = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         setActiveParcelId(parcel._id);
-        updateStatus({ parcel, status: newStatus });
+        updateStatus({ parcel, status: newStatus })
+          .then(async () => {
+            Swal.fire("Updated!", "Parcel status updated.", "success");
+
+            // log tracking
+            let trackDetails = `Picked up by ${user.displayName}`;
+            if (newStatus === "delivered") {
+              trackDetails = `Delivered by ${user.displayName}`;
+            }
+
+            await logTracking({
+              tracking_id: parcel.tracking_id,
+              status: newStatus,
+              details: trackDetails,
+              updated_by: userEmail,
+            });
+          })
+          .catch((error) => {
+            Swal.fire(error.message, "Failed to update status.", "error");
+          })
+          .finally(() => {
+            setActiveParcelId(null);
+          });
       }
     });
   };

@@ -7,6 +7,7 @@ import loader from "../../../assets/animations/loading.json";
 import Lottie from "lottie-react";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useTrackingLogger from "../../../Hooks/useTrackingLogger";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -14,6 +15,7 @@ const PaymentForm = () => {
   const [error, setError] = useState("");
   const { parcelId } = useParams();
   const axiosSecure = useAxiosSecure();
+  const { logTracking } = useTrackingLogger();
   const { user, userEmail, uid } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ const PaymentForm = () => {
       setLoading(false);
     } else {
       setError("");
-        setLoading(false);
+      setLoading(false);
 
       const res = await axiosSecure.post(`/create-payment-intent?uid=${uid}`, {
         amountInCents,
@@ -98,7 +100,10 @@ const PaymentForm = () => {
             paymentMethod: result.paymentIntent.payment_method_types,
           };
 
-          const paymentRes = await axiosSecure.post(`/payments?uid=${uid}`, paymentData);
+          const paymentRes = await axiosSecure.post(
+            `/payments?uid=${uid}`,
+            paymentData
+          );
           if (paymentRes.data.insertedId) {
             await Swal.fire({
               icon: "success",
@@ -107,6 +112,14 @@ const PaymentForm = () => {
               confirmButtonText: "Go to My Parcels",
             });
             setLoading(false);
+
+            await logTracking({
+              tracking_id: parcelInfo.tracking_id,
+              status: "payment_done",
+              details: `Paid by ${user.displayName}`,
+              updated_by: userEmail,
+            });
+
             navigate("/dashboard/myParcels");
           }
         }

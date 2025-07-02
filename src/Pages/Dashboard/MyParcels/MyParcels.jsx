@@ -22,7 +22,9 @@ const MyParcels = () => {
   } = useQuery({
     queryKey: ["my-parcels", userEmail],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?email=${userEmail}&uid=${uid}`);
+      const res = await axiosSecure.get(
+        `/parcels?email=${userEmail}&uid=${uid}`
+      );
       return res.data;
     },
   });
@@ -69,6 +71,8 @@ const MyParcels = () => {
     return new Date(iso).toLocaleString();
   };
 
+  const hasAssignedRider = parcels.some((parcel) => parcel.assigned_rider_name);
+
   return (
     <div className="px-4">
       {parcels.length === 0 ? (
@@ -82,8 +86,8 @@ const MyParcels = () => {
           <h1 className="text-3xl text-gray-600 font-extrabold mb-6 text-center">
             Your sended parcels
           </h1>
-          <div className="overflow-x-auto rounded-box border-2 border-base-content/5 bg-base-200">
-            <table className="table text-center">
+          <div className="overflow-x-auto rounded-box border-2 border-base-content/5 bg-base-200 items-center">
+            <table className="table text-center table-xs">
               {/* head */}
               <thead>
                 <tr>
@@ -92,7 +96,8 @@ const MyParcels = () => {
                   <th>Type</th>
                   <th>Created At</th>
                   <th>Cost</th>
-                  <th>Payment</th>
+                  <th>Payment Status</th>
+                  {hasAssignedRider && <th>Assigned Rider Name</th>}
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -117,6 +122,15 @@ const MyParcels = () => {
                         </div>
                       }
                     </td>
+
+                    {hasAssignedRider && (
+                      <td>
+                        {parcel.assigned_rider_name
+                          ? parcel.assigned_rider_name
+                          : "Not Assigned yet"}
+                      </td>
+                    )}
+
                     <td className="flex gap-1 justify-end">
                       {parcel.payment_status === "unpaid" && (
                         <button

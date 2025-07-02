@@ -9,10 +9,13 @@ import {
   FiHome,
 } from "react-icons/fi";
 import {
+  FaCheckCircle,
   FaMotorcycle,
+  FaTasks,
   FaUserCheck,
   FaUserClock,
   FaUserShield,
+  FaWallet,
 } from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 
@@ -88,6 +91,27 @@ const DashboardLayout = () => {
               <FiUser /> Update Profile
             </NavLink>
           </li>
+
+          {!roleLoading && role === "rider" && (
+            <>
+              <li className="my-1">
+                <NavLink to="/dashboard/pendingDeliveries">
+                  <FaTasks /> Pending Deliveries
+                </NavLink>
+              </li>
+              <li className="my-1">
+                <NavLink to="/dashboard/completedDeliveries">
+                  <FaCheckCircle size={15} /> Completed Deliveries
+                </NavLink>
+              </li>
+              <li className="my-1">
+                <NavLink to="/dashboard/myEarnings">
+                  <FaWallet /> My Earnings
+                </NavLink>
+              </li>
+            </>
+          )}
+
           {!roleLoading && role === "admin" && (
             <>
               {" "}

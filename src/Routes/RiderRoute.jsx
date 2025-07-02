@@ -5,7 +5,7 @@ import useUserRole from "../Hooks/useUserRole";
 import { Navigate } from "react-router";
 import Lottie from "lottie-react";
 
-const AdminRoute = ({ children }) => {
+const RiderRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { role, roleLoading } = useUserRole();
 
@@ -19,11 +19,11 @@ const AdminRoute = ({ children }) => {
     );
   }
 
-  if (!user || role !== "admin") {
+  if (!user || role !== "rider") {
     return <Navigate to="/forbidden"></Navigate>;
   }
 
   return children;
 };
 
-export default AdminRoute;
+export default RiderRoute;

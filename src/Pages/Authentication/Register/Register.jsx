@@ -107,7 +107,7 @@ const Register = () => {
   return (
     <div className="px-4">
       <ProfastLogo />
-      <div className="card w-full shadow-xl max-w-sm mx-auto my-12">
+      <div className="card w-full shadow-xl max-w-md mx-auto my-12">
         <div className="card-body">
           <h1 className="text-3xl font-extrabold">Create an Account</h1>
           <p className="mb-4 text-sm font-semibold">Register with Profast</p>
@@ -138,7 +138,7 @@ const Register = () => {
             <input
               type="text"
               {...register("name", { required: true, minLength: 6 })}
-              className="input placeholder:text-[13px] placeholder:font-bold"
+              className="input placeholder:text-[13px] placeholder:font-bold w-full"
               placeholder="Enter your name"
             />
             {errors.name && (
@@ -153,7 +153,7 @@ const Register = () => {
             <input
               type="email"
               {...register("email", { required: true })}
-              className="input placeholder:text-[13px] placeholder:font-bold"
+              className="input placeholder:text-[13px] placeholder:font-bold w-full"
               placeholder="Enter your email"
             />
             {errors.email && (
@@ -164,7 +164,7 @@ const Register = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                className="input placeholder:text-[13px] placeholder:font-bold"
+                className="input placeholder:text-[13px] placeholder:font-bold w-full"
                 placeholder="Enter your password"
                 {...register("password", {
                   required: true,
@@ -184,13 +184,13 @@ const Register = () => {
               {showPassword ? (
                 <FaEyeSlash
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-3 right-6 cursor-pointer z-10"
+                  className="absolute top-3 right-3 cursor-pointer z-10"
                   size={17}
                 />
               ) : (
                 <FaEye
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-3 right-6 cursor-pointer z-10"
+                  className="absolute top-3 right-3 cursor-pointer z-10"
                   size={17}
                 />
               )}

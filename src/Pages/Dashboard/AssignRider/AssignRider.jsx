@@ -35,6 +35,7 @@ const AssignRider = () => {
         {
           riderId: rider._id,
           riderName: rider.riderName,
+          riderEmail: rider.riderEmail
         }
       );
       return res.data;

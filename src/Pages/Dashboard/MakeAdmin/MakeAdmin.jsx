@@ -21,7 +21,7 @@ const MakeAdmin = () => {
     enabled: !!emailQuery,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/users/search?email=${emailQuery}&uid=${uid}`
+        `/users/search?emailQuery=${emailQuery}&email=${userEmail}&uid=${uid}`
       );
       return res.data;
     },

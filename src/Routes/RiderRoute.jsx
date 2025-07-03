@@ -1,9 +1,8 @@
 import React from "react";
 import useAuth from "../Hooks/useAuth";
-import loader from "../assets/animations/loading.json";
 import useUserRole from "../Hooks/useUserRole";
 import { Navigate } from "react-router";
-import Lottie from "lottie-react";
+import Loading from "../Components/Loading/Loading";
 
 const RiderRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -11,11 +10,7 @@ const RiderRoute = ({ children }) => {
 
   if (loading || roleLoading) {
     return (
-      <Lottie
-        animationData={loader}
-        loop={true}
-        className="h-[40vh] w-auto"
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

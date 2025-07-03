@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import rider from "../../assets/rider.png";
+import riderLottie from "../../assets/animations/rider.json";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import Lottie from "lottie-react";
 
 const BeARider = () => {
   const axiosSecure = useAxiosSecure();
@@ -310,7 +311,7 @@ const BeARider = () => {
         </form>
 
         <div>
-          <img src={rider} className="w-full" alt="" />
+          <Lottie animationData={riderLottie} loop={true}></Lottie>
         </div>
       </div>
     </div>

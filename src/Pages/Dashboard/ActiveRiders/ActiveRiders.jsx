@@ -3,9 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaSearch, FaUserSlash } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
-import loader from "../../../assets/animations/loading.json";
-import Lottie from "lottie-react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Loading from "../../../Components/Loading/Loading";
 
 const ActiveRiders = () => {
   const { userEmail, uid } = useAuth();
@@ -30,11 +29,7 @@ const ActiveRiders = () => {
 
   if (isPending) {
     return (
-      <Lottie
-        className="h-[40vh] place-items-center"
-        loop={true}
-        animationData={loader}
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

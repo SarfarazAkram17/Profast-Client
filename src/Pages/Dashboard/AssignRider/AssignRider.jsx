@@ -4,9 +4,8 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
-import Lottie from "lottie-react";
-import loader from "../../../assets/animations/loading.json";
 import useTrackingLogger from "../../../Hooks/useTrackingLogger";
+import Loading from "../../../Components/Loading/Loading";
 
 const AssignRider = () => {
   const { userEmail, uid } = useAuth();
@@ -96,11 +95,7 @@ const AssignRider = () => {
         Assign Rider to Parcels
       </h1>
       {isLoading ? (
-        <Lottie
-          animationData={loader}
-          loop={true}
-          className="h-[40vh] place-items-center"
-        />
+        <Loading></Loading>
       ) : parcels.length === 0 ? (
         <p className="text-gray-500">No parcels available for assign.</p>
       ) : (
@@ -151,11 +146,7 @@ const AssignRider = () => {
               </h1>
 
               {loadingRiders ? (
-                <Lottie
-                  animationData={loader}
-                  loop={true}
-                  className="h-[40vh] place-items-center"
-                />
+                <Loading></Loading>
               ) : riders.length === 0 ? (
                 <h1 className="text-lg text-error font-extrabold mb-6 text-center">
                   No available riders in this district.

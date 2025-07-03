@@ -5,9 +5,7 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
 import Coverage from "../Pages/Coverage/Coverage";
-import Lottie from "lottie-react";
 
-import loader from "../assets/animations/loading.json";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import SendParcel from "../Pages/SendParcel/SendParcel";
 import PrivateRoute from "../Routes/PrivateRoute";
@@ -27,6 +25,8 @@ import PendingDeliveries from "../Pages/Dashboard/PendingDeliveries/PendingDeliv
 import RiderRoute from "../Routes/RiderRoute";
 import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import MyEarnings from "../Pages/Dashboard/MyEarnings/MyEarnings";
+import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import Loading from "../Components/Loading/Loading";
 
 export const router = createBrowserRouter([
   {
@@ -41,13 +41,7 @@ export const router = createBrowserRouter([
         path: "/coverage",
         Component: Coverage,
         loader: () => fetch("./serviceCenter.json"),
-        hydrateFallbackElement: (
-          <Lottie
-            animationData={loader}
-            loop={true}
-            className="h-[50vh] w-auto"
-          ></Lottie>
-        ),
+        hydrateFallbackElement: <Loading></Loading>,
       },
       {
         path: "/sendParcel",
@@ -89,6 +83,10 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        Component: DashboardHome,
+      },
       {
         path: "myParcels",
         Component: MyParcels,

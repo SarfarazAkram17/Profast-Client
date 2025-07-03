@@ -8,8 +8,7 @@ import {
 } from "date-fns";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
-import Lottie from "lottie-react";
-import loader from "../../../assets/animations/loading.json";
+import Loading from "../../../Components/Loading/Loading";
 
 const MyEarnings = () => {
   const axiosSecure = useAxiosSecure();
@@ -75,11 +74,7 @@ const MyEarnings = () => {
         My Earnings
       </h1>
       {isLoading ? (
-        <Lottie
-          className="h-[40vh] place-items-center"
-          loop={true}
-          animationData={loader}
-        ></Lottie>
+        <Loading></Loading>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -3,9 +3,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { FaUserShield, FaUserTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import Lottie from "lottie-react";
-import loader from "../../../assets/animations/loading.json";
 import useAuth from "../../../Hooks/useAuth";
+import Loading from "../../../Components/Loading/Loading";
 
 const MakeAdmin = () => {
   const { userEmail, uid } = useAuth();
@@ -94,11 +93,7 @@ const MakeAdmin = () => {
       </div>
 
       {isFetching && (
-        <Lottie
-          className="h-[40vh] place-items-center"
-          loop={true}
-          animationData={loader}
-        ></Lottie>
+        <Loading></Loading>
       )}
 
       {!isFetching && users.length === 0 && emailQuery && (

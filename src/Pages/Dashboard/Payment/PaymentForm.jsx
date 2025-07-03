@@ -3,11 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import loader from "../../../assets/animations/loading.json";
-import Lottie from "lottie-react";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useTrackingLogger from "../../../Hooks/useTrackingLogger";
+import Loading from "../../../Components/Loading/Loading";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -30,11 +29,7 @@ const PaymentForm = () => {
 
   if (isPending) {
     return (
-      <Lottie
-        className="h-[40vh] place-items-center"
-        loop={true}
-        animationData={loader}
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

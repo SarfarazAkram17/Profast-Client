@@ -2,10 +2,9 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { FaEye, FaCheck, FaTimes } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import Lottie from "lottie-react";
-import loader from "../../../assets/animations/loading.json";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Loading from "../../../Components/Loading/Loading";
 
 const PendingRiders = () => {
   const { userEmail, uid } = useAuth();
@@ -26,11 +25,7 @@ const PendingRiders = () => {
 
   if (isPending) {
     return (
-      <Lottie
-        className="h-[40vh] place-items-center"
-        loop={true}
-        animationData={loader}
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

@@ -1,8 +1,7 @@
 import React from "react";
 import useAuth from "../Hooks/useAuth";
 import { Navigate, useLocation } from "react-router";
-import loader from "../assets/animations/loading.json";
-import Lottie from "lottie-react";
+import Loading from "../Components/Loading/Loading";
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
@@ -10,11 +9,7 @@ const PrivateRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <Lottie
-        animationData={loader}
-        loop={true}
-        className="h-[40vh] w-auto"
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

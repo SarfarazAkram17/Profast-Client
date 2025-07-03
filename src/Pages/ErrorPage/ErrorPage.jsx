@@ -1,5 +1,4 @@
 import Lottie from "lottie-react";
-import React from "react";
 import errorLottie from "../../assets/animations/error.json";
 import { Link } from "react-router";
 

@@ -3,9 +3,8 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import Lottie from "lottie-react";
-import loader from "../../../assets/animations/loading.json";
 import useTrackingLogger from "../../../Hooks/useTrackingLogger";
+import Loading from "../../../Components/Loading/Loading";
 
 const PendingDeliveries = () => {
   const axiosSecure = useAxiosSecure();
@@ -81,11 +80,7 @@ const PendingDeliveries = () => {
   return (
     <div className="p-6">
       {isLoading ? (
-        <Lottie
-          className="h-[40vh] place-items-center"
-          loop={true}
-          animationData={loader}
-        ></Lottie>
+        <Loading></Loading>
       ) : parcels.length === 0 ? (
         <h1 className="text-3xl text-gray-600 font-extrabold mb-6 text-center">
           No assigned deliveries yet.

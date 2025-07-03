@@ -2,8 +2,7 @@ import React from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import loader from "../../../assets/animations/loading.json";
-import Lottie from "lottie-react";
+import Loading from "../../../Components/Loading/Loading";
 
 const PaymentHistory = () => {
   const { userEmail, uid } = useAuth();
@@ -19,11 +18,7 @@ const PaymentHistory = () => {
 
   if (isPending) {
     return (
-      <Lottie
-        className="h-[40vh] place-items-center"
-        loop={true}
-        animationData={loader}
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

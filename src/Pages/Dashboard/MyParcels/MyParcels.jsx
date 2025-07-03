@@ -1,7 +1,5 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import Lottie from "lottie-react";
-import loader from "../../../assets/animations/loading.json";
 import { IoMdEye } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -9,6 +7,7 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Loading from "../../../Components/Loading/Loading";
 
 const MyParcels = () => {
   const axiosSecure = useAxiosSecure();
@@ -35,11 +34,7 @@ const MyParcels = () => {
 
   if (isPending) {
     return (
-      <Lottie
-        className="h-[40vh] place-items-center"
-        loop={true}
-        animationData={loader}
-      ></Lottie>
+      <Loading></Loading>
     );
   }
 

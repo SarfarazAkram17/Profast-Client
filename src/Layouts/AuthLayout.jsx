@@ -1,5 +1,4 @@
 import Lottie from "lottie-react";
-import React from "react";
 import { Outlet, useLocation } from "react-router";
 import loginLottie from "../assets/animations/login.json";
 import registerLottie from "../assets/animations/register.json";

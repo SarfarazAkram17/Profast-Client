@@ -414,7 +414,7 @@ const SendParcel = () => {
                     Pickup Instruction
                   </legend>
                   <textarea
-                    className="textarea w-full"
+                    className="textarea w-full resize-none"
                     placeholder="Pickup Instruction"
                     rows={4}
                     {...register("pickupInstruction", {
@@ -582,7 +582,7 @@ const SendParcel = () => {
                     Delivery Instruction
                   </legend>
                   <textarea
-                    className="textarea w-full"
+                    className="textarea w-full resize-none"
                     placeholder="Delivery Instruction"
                     rows={4}
                     {...register("deliveryInstruction", {
